@@ -1,2 +1,60 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<section class='mt-5 container' id="calculator">
+  <div id="title-page container">
+    <h1 class='text-center'>Calculadora de balance</h1>
+  </div>
+  <div id="input-csv" class="text-center mt-4 p-3 row justify-content-center container">
+    <%= form_tag('/investment/balance', multipart: true, id: 'csv-form', class: 'col-6 bg-light p-4 rounded') do %>
+      <div>
+        <%= file_field_tag 'csv_file' %>
+      </div>
+      <div class='mt-4'>
+        <%= button_tag 'Subir CSV', type: 'button', id: 'submit-btn', class:'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='d-none' id="table-cripto">
+    <div class="container text-center mt-4 p-5 rounded border">
+      <table class="table table-hover table-striped table-borderless">
+        <thead>
+          <tr id='cripto-name'>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id='table-body'>
+          <tr id='price-usd'>
+            <th scope="row" class='text-dark-emphasis'>
+              Precio USD
+              <%= image_tag('price.png',class:'mx-2', width: 30) %>
+            </th>
+          </tr>
+          <tr id='total-currency'>
+            <th scope="row" class='text-dark-emphasis'>
+              Total moneda
+              <%= image_tag('total.png',class:'mx-2', width: 30) %>
+            </th>
+          </tr>
+          <tr id='return-month'>
+            <th scope="row" class='text-dark-emphasis'>
+              Retorno mes
+              <%= image_tag('month.png',class:'mx-2', width: 30) %>
+            </th>
+          </tr>
+          <tr id='return-year'>
+            <th scope="row" class='text-dark-emphasis'>
+              Retono Anual
+              <%= image_tag('year.png',class:'mx-2', width: 30) %>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <div id='export-options' class='mt-4'>
+        <button id="downloadJsonBtn" class="btn btn-outline-primary mx-2">Descargar JSON</button>
+        <button id="downloadCsvBtn" class="btn btn-outline-primary mx-2">Descargar CSV</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
