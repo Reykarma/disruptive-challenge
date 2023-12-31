@@ -1,6 +1,6 @@
 <section class='mt-5 container' id="calculator">
   <div id="title-page container">
-    <h1 class='text-center'>Calculadora de balance</h1>
+    <h1 class='text-center title'>Calculadora de balance</h1>
   </div>
   <div id="input-csv" class="text-center mt-4 p-3 row justify-content-center container">
     <%= form_tag('/investment/balance', multipart: true, id: 'csv-form', class: 'col-6 bg-light p-4 rounded') do %>
@@ -23,25 +23,25 @@
         </thead>
         <tbody id='table-body'>
           <tr id='price-usd'>
-            <th scope="row" class='text-dark-emphasis'>
+            <th scope="row" class='text-dark-emphasis sub-title'>
               Precio USD
               <%= image_tag('price.png',class:'mx-2', width: 33) %>
             </th>
           </tr>
           <tr id='total-currency'>
-            <th scope="row" class='text-dark-emphasis'>
-              Total moneda
+            <th scope="row" class='text-dark-emphasis sub-title'>
+              Total Moneda
               <%= image_tag('total.png',class:'mx-2', width: 33) %>
             </th>
           </tr>
           <tr id='return-month'>
-            <th scope="row" class='text-dark-emphasis'>
-              Retorno mes
+            <th scope="row" class='text-dark-emphasis sub-title'>
+              Retorno Mes
               <%= image_tag('month.png',class:'mx-2', width: 33) %>
             </th>
           </tr>
           <tr id='return-year'>
-            <th scope="row" class='text-dark-emphasis'>
+            <th scope="row" class='text-dark-emphasis sub-title'>
               Retono Anual
               <%= image_tag('year.png',class:'mx-2', width: 33) %>
             </th>

@@ -1,11 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-	data = [
-			{"name":"Bitcoin","price_usd":41571.31627839723,"cripto_balance":0.0002405504779553145,"month_return":0.0000010022936581471438,"year_return":0.000012027523897765726},
-			{"name":"Ethereum","price_usd":2275.17918328004,"cripto_balance":0.030766807517587973,"month_return":0.0001076838263115579,"year_return":0.001292205915738695},
-			{"name":"Cardano","price_usd":0.5969326615095039,"cripto_balance":33.50461666718764,"month_return":0.027920513889323036,"year_return":0.3350461666718764}
-		];
-		updateTable(data);
-		downloadButtons(data)
+
 
 	document.getElementById("submit-btn").addEventListener("click", function() {
 			const formData = new FormData(document.getElementById("csv-form"));
@@ -16,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
 			})
 			.then(response => response.json())
 			.then(data => {
-					updateTable(data);
-					downloadButtons(data)
+					updateTable(data.result);
+					downloadButtons(data.result)
 			})
 			.catch(error => {
-				updateTable(data);
-				downloadButtons(data)
+				updateTable(data.result);
+				downloadButtons(data.result)
 					console.error('Error al enviar el formulario:', error);
 			});
 	});
@@ -58,11 +52,14 @@ function createTableCell(tag, text) {
 	const cell = document.createElement(tag);
 	cell.textContent = text;
 	if(tag == 'th'){
-		var imagen = document.createElement("img");
-		imagen.src = '/assets/'+text+'.png';
-		imagen.width = 35
-		imagen.classList.add("mx-2")
-		cell.appendChild(imagen)
+		var image = document.createElement("img");
+		image.src = '/assets/'+text+'.png';
+		image.width = 35;
+		image.classList.add("mx-2");
+		cell.appendChild(image);
+		cell.classList.add("sub-title")
+	}else if(tag == 'td'){
+		cell.classList.add("text")
 	}
 	return cell;
 }
