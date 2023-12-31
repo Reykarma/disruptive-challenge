@@ -60,8 +60,8 @@ function createTableCell(tag, text) {
 	if(tag == 'th'){
 		var imagen = document.createElement("img");
 		imagen.src = '/assets/'+text+'.png';
-		imagen.width = 30
-		imagen.classList.add("mx-1")
+		imagen.width = 35
+		imagen.classList.add("mx-2")
 		cell.appendChild(imagen)
 	}
 	return cell;
