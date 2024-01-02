@@ -76,7 +76,7 @@ function downloadButtons(data){
 	const downloadcsvBtn = document.getElementById('downloadCsvBtn');
 
 	downloadjsonBtn.addEventListener('click', function() {
-		downlodJson(data);
+		downloadJson(data);
 	});
 	downloadcsvBtn.addEventListener('click', function() {
 		downloadCsv(data)
@@ -85,7 +85,7 @@ function downloadButtons(data){
 
 function downloadJson(data) {
 	const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-	const url = URL.createURL(blob);
+	const url = URL.createObjectURL(blob);
 	const link = document.createElement('a');
 	link.href = url;
 	link.download = 'datos.json';
