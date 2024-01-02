@@ -11,7 +11,7 @@ class Investment < ApplicationRecord
 
   def calculate_investment
     investment_data = []
-    cripto_data.each do |cripto|
+    build_cripto_data.each do |cripto|
       begin
         price_cripto = @coin_api.get_price(cripto[:id])
         cripto_balance = cripto_balance(price_cripto, cripto[:amount_invest])
@@ -34,15 +34,32 @@ class Investment < ApplicationRecord
     CSV.parse(csv_data, headers: true) do |row|
       data << row.to_hash
     end
-    data[0]
+    data
   end
 
-  def cripto_data
-    [
-      { id: 'BTC', name: "Bitcoin", anual_percent: 5, amount_invest: amount_invest(@csv_data['porcentaje_bitcoin']) },
-      { id: 'ETH', name: "Ethereum", anual_percent: 4.2, amount_invest: amount_invest(@csv_data['porcentaje_ether']) },
-      { id: 'ADA', name: "Cardano", anual_percent: 1, amount_invest: amount_invest(@csv_data['porcentaje_cardano']) }
-    ]
+  def build_cripto_data
+    cripto_data = []
+    @csv_data.map do |cripto|
+      cripto_object = {
+        id: cripto_id(cripto['Moneda'].downcase),
+        name: cripto['Moneda'],
+        month_percent: cripto['Interes_mensual'],
+        amount_invest: cripto['balance_ini']
+      }
+      cripto_data << cripto_object
+    end
+    cripto_data
+  end
+
+  def cripto_id(name)
+    case name
+    when 'bitcoin'
+      'BTC'
+    when 'ether'
+      'ETC'
+    else
+      'ADA'
+    end
   end
 
 	def build_balance_data(cripto, price_cripto, cripto_balance)
@@ -50,26 +67,21 @@ class Investment < ApplicationRecord
       name: cripto[:name],
       price_usd: price_cripto,
       cripto_balance: cripto_balance,
-      month_return: month_return(cripto_balance, cripto[:anual_percent]),
-      year_return: year_return(cripto_balance, cripto[:anual_percent])
+      month_return: month_return(cripto_balance, cripto[:month_percent]),
+      year_return: year_return(cripto_balance, cripto[:month_percent])
     }
 	end
-
-  def amount_invest(investment_percent)
-    @csv_data['inversion_dolares'].to_f * (investment_percent.to_f / 100)
-  end
 
   def cripto_balance(price_cripto, amount_invest)
     amount_invest.to_f / price_cripto
   end
 
-  def month_return(cripto_balance, anual_percent)
-    result = ((anual_percent.to_f / 100) / 12) * cripto_balance
+  def month_return(cripto_balance, month_percent)
+    result = (month_percent.to_f / 100) * cripto_balance
   end
 
-  def year_return(cripto_balance, anual_percent)
-    result = (anual_percent.to_f / 100) * cripto_balance
+  def year_return(cripto_balance, month_percent)
+    result = ( (month_percent.to_f / 100) * cripto_balance ) * 12
   end
-
 end
 
