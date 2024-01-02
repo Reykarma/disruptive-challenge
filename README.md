@@ -1,4 +1,4 @@
-Dentro del proyecto se encuentra el archivo `Calculadora.csv`, que es para ingresar el balance en dólares y el porcentaje de cada criptomoneda a la cual se quiere invertir.
+Dentro del proyecto se encuentra el archivo `origen.csv`, que es para ingresar el balance en dólares y el porcentaje de cada criptomoneda a la cual se quiere invertir.
 
 - Se agregaron pruebas básicas.
 - Se agregó manejo de errores.
