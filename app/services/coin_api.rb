@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 class CoinApi
 	def initialize
 		@url = 'https://rest.coinapi.io/v1/assets/'
@@ -5,16 +8,18 @@ class CoinApi
 	end
 
 	def get_price(cripto_id)
-		require 'uri'
-		require 'net/http'
-
+    	#return nil
 		url = URI(@url+cripto_id)
 		http = Net::HTTP.new(url.host, url.port)
 		request = Net::HTTP::Get.new(url)
 		http.use_ssl = true
 		request["X-CoinAPI-Key"] = @api_key
-		response = http.request(request)
-		json_response = JSON.parse(response.read_body)
-		json_response[0]['price_usd']
+		begin
+			response = http.request(request)
+			json_response = JSON.parse(response.read_body)
+			json_response[0]['price_usd']
+		rescue StandardError => e
+			nil
+		end
 	end
 end

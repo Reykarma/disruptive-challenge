@@ -12,10 +12,15 @@ class Investment < ApplicationRecord
   def calculate_investment
     investment_data = []
     cripto_data.each do |cripto|
-      price_cripto = @coin_api.get_price(cripto[:id])
-      cripto_balance = cripto_balance(price_cripto, cripto[:amount_invest])
-			balance_data = build_balance_data(cripto, price_cripto, cripto_balance)
-      investment_data << balance_data
+      begin
+        price_cripto = @coin_api.get_price(cripto[:id])
+        cripto_balance = cripto_balance(price_cripto, cripto[:amount_invest])
+        balance_data = build_balance_data(cripto, price_cripto, cripto_balance)
+        investment_data << balance_data
+      rescue StandardError => exception
+        Rails.logger.error("Error al obtener el precio para #{cripto[:id]}: #{exception.message}")
+        raise StandardError, "Error al obtener el precio de la cripto #{cripto[:id]}"
+      end
     end
     investment_data
   end

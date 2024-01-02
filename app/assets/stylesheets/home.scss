@@ -1,7 +1,7 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.title{
+.title, .error-text{
 	font-family: 'DM Sans', sans-serif;
 }
 
@@ -12,3 +12,32 @@
 .text{
 	font-family: 'Urbanist', sans-serif;
 }
+
+#loading {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.7);
+	z-index: 9999;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  #loading .spinner-border {
+	width: 5rem;
+	height: 5rem;
+  }
+  
+  #alert-image {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.5s ease-in-out;
+  }
+  
+  #alert-image.show {
+	opacity: 1;
+	visibility: visible;
+  }
